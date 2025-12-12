@@ -1,0 +1,145 @@
+
+---
+
+## 2️⃣ Demo Script (for 4–5 minute presentation)
+
+You can read this (or adapt it) during your demo.
+
+---
+
+### 1. Introduction (30–45s)
+
+> “Hello, we’re Group [X], and this is our **Ghost Hunter AI** project.  
+> It’s a small maze game where an AI-controlled Hunter automatically chases a moving Ghost using the **A\*** search algorithm. The goal of the agent is to capture the ghost 5 times, after which the game reaches a win state.”
+
+---
+
+### 2. Game Setup & Environment (45–60s)
+
+> “The game is built in **Python** using **Pygame**.  
+> The environment is a 2D grid maze.  
+> Each cell is either a wall or a free tile.  
+> The blue square is the Hunter, and the red circle is the Ghost.  
+> The Hunter always starts at the `S` tile in the maze layout.”
+
+Show the maze and point out Hunter & Ghost on screen.
+
+---
+
+### 3. AI Algorithm – A* Search (1–1.5 min)
+
+> “The main AI component is the **A\*** search algorithm.  
+> We model each grid position as a node.  
+> From each node, the Hunter can move up, down, left, or right if there is no wall.  
+> The cost of each move is 1, and we use **Manhattan distance** as a heuristic between the Hunter and the Ghost.  
+>  
+> At every update, the Hunter’s agent calls A\* with:
+> - Start = Hunter’s current position  
+> - Goal = Ghost’s current position  
+>  
+> A\* returns the shortest path, and the agent takes only the **next step** along that path.  
+> This process repeats every frame, so the Hunter continuously recomputes the best path as the Ghost moves.”
+
+While explaining, let the game run so they can visually see the hunter adjusting.
+
+---
+
+### 4. Ghost Behaviour & Respawn Logic (45s–1 min)
+
+> “The Ghost is not a smart agent; it moves randomly through the maze.  
+> We keep it inside valid path tiles, so it doesn’t walk through walls.  
+>  
+> When the Hunter reaches the Ghost, we consider that a capture:
+> - The score increases by 50
+> - The capture counter increases by 1  
+>  
+> Then we respawn the Ghost at a new random position that is **far away** from the Hunter.  
+> This forces the Hunter to run A\* again over a different part of the maze.”
+
+Show at least one capture and the ghost respawning.
+
+---
+
+### 5. Win Condition & Game Loop (30–45s)
+
+> “The objective of the agent is to capture the Ghost **5 times**.  
+> Once the capture counter reaches 5, the game displays  
+> ‘YOU WIN! Press R to Restart’.  
+> We stop updating the movement and wait for the user to press **R**, which resets the game state back to the beginning.”
+
+Pause on the YOU WIN screen.
+
+---
+
+### 6. Challenges & LLM Usage (45–60s)
+
+> “Some of the main challenges were:
+> - Getting the Hunter movement to be tile-based so it doesn’t get misaligned with the maze.
+> - Handling ghost respawn without instantly colliding again.
+> - Keeping the AI stable while recording demo videos.
+>  
+> We used a Large Language Model, ChatGPT, to help with:
+> - Designing clean A\* code for grid search.
+> - Fixing small bugs in Pygame movement and collision.
+> - Refactoring the game manager to separate drawing, updating and AI logic.
+>  
+> However, we always manually tested and modified the suggestions to make sure we understood the logic and that the code behaved as expected.”
+
+---
+
+### 7. Wrap-up (15–30s)
+
+> “In summary, this project demonstrates an AI agent using **A\*** search to chase a moving target in a dynamic maze environment built with Pygame.  
+> Thank you, and we’re happy to answer any questions.”
+
+---
+
+## 3️⃣ LLM Usage Section (for your report)
+
+You can put this as a separate section titled **“LLM Usage”** in your 2–3 page report.
+
+```markdown
+### LLM Usage
+
+We used OpenAI’s ChatGPT (GPT-5.1 Thinking) as a coding assistant during development of the Ghost Hunter AI game. The LLM was used only for implementation help and debugging, not for designing the core AI logic.
+
+**Where LLMs helped**
+
+1. **Initial project structure**
+   - We asked ChatGPT to propose a clean folder structure for a small Pygame project using an AI agent.  
+   - Output influenced the final layout: `config/`, `ai/`, and `engine/` modules.
+
+2. **A\* implementation**
+   - We asked for a grid-based A\* implementation using Manhattan distance as the heuristic.  
+   - We then adapted the code to our own maze representation (`MAZE_LAYOUT`) and verified that it always returns valid paths in open space and empty lists when the target is unreachable.
+
+3. **Hunter movement and tile alignment**
+   - We requested help to update pixel positions smoothly while still snapping the Hunter to the centre of tiles.  
+   - The suggested code was modified: we added tolerance checks when the Hunter is close enough to the tile centre and then snapped it exactly to `TILE_SIZE/2` offsets.
+
+4. **Ghost respawn logic**
+   - ChatGPT suggested using a respawn loop that only picks positions which are not walls.  
+   - We extended this by adding a constraint on Manhattan distance so that the ghost always respawns far away from the Hunter, avoiding instant recapture loops.
+
+5. **Game manager refactoring**
+   - We asked for advice on separating event handling, updates, and drawing into different methods of a `GameManager` class.  
+   - The final structure (`handle_events`, `update`, `draw`, `run`) is based on these suggestions.
+
+**Example prompts**
+
+- “Write A* search in Python for a grid maze using walls defined in a 2D array.”  
+- “How can I move a Pygame sprite smoothly from one tile to another while keeping it aligned to a grid?”  
+- “Help me design a simple ghost AI that moves randomly but respects maze walls.”  
+- “Show me how to structure a Pygame main loop using a GameManager class.”
+
+**How we validated and modified LLM-generated code**
+
+- We manually inspected all AI-generated code and added comments explaining each step.
+- We wrote small tests and debug prints to verify that:
+  - A\* always returns a valid path in open areas.
+  - The Hunter never moves through walls.
+  - The Ghost never respawns in walls or too close to the Hunter.
+- In several cases we simplified or rewrote parts of the suggestions to match the specific behaviour we wanted (for example, limiting captures to 5 and adding a “YOU WIN” end state).
+- We made sure we could explain every function (especially `a_star_search` and the HunterAgent logic) without relying on the LLM.
+
+Overall, the LLM was used as a **coding assistant**, while the AI design decisions (using A\*, maze representation, win condition, capture logic) were made and fully understood by our group.

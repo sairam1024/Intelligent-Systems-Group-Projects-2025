@@ -1,0 +1,22 @@
+How to Run the Prolog Navigation Solver
+---------------------------------------
+
+1. Open terminal in:
+   PathSolver-G2/logic_engines/pl_engine/
+
+2. Start Prolog:
+   swipl
+
+3. Load the navigation engine:
+   ?- [nav_solver].
+
+4. Example Queries:
+   ?- route(library, cafeteria, Route).
+   ?- route(engineering, parking, Route).
+   ?- route(library, auditorium, Path).
+
+5. Expected Output:
+   Route = [library, quad, engineering, cafeteria]
+   etc.
+
+This engine uses DFS recursion to expand possible routes.

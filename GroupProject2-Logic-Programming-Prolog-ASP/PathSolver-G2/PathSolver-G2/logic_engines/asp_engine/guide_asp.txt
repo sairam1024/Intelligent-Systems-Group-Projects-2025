@@ -1,0 +1,20 @@
+ASP Navigation Engine – Usage Instructions
+------------------------------------------
+
+1. Open terminal in:
+   PathSolver-G2/logic_engines/asp_engine/
+
+2. Run the model:
+   clingo nav_model.lp
+
+3. The solver will output:
+   - reachable nodes
+   - path steps chosen
+   - minimized step count
+
+4. Example interpretation:
+   step(library,quad)
+   step(quad,engineering)
+   ...
+
+The optimization ensures shorter path selection.

@@ -1,0 +1,46 @@
+# Group 2 – Campus Navigation Logic Engine
+## Final Project Report
+
+### 1. Introduction
+This report presents a navigation engine developed using logic
+programming techniques. The system models a university campus map
+and computes valid walking routes between buildings. Two engines
+were implemented: a Prolog-based pathfinder and an ASP/Clingo
+optimization model.
+
+### 2. Problem Description
+The goal is to determine valid routes between buildings and compute
+the shortest walking path. The campus graph consists of seven
+locations connected by walkable edges. Logic programming is used
+to represent relationships, recursion, and constraints.
+
+### 3. Prolog Engine
+The Prolog module implements a depth-first search (DFS) route
+finder using recursion and backtracking. The implementation
+includes cycle prevention and path construction.
+
+Example:
+?- route(library, auditorium, P).
+
+Output:
+P = [library, quad, engineering, cafeteria, auditorium].
+
+### 4. ASP Engine
+The ASP module defines edges, recursive reachability, constraints,
+and an optimization rule to minimize steps.
+
+Clingo output:
+- 6 valid answer sets
+- Optimum route has 4 steps
+- Shortest path confirmed
+
+### 5. Comparison
+Prolog excels in recursive traversal and returning ordered paths.
+ASP excels in constraint-based optimization, generating multiple
+candidate solutions and selecting the shortest.
+
+### 6. Conclusion
+The project demonstrates Prolog and ASP for intelligent navigation.
+Both engines successfully compute valid paths, while ASP additionally
+computes the shortest route using optimization.
+

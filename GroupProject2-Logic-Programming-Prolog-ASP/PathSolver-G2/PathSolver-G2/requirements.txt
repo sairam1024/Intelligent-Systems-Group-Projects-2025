@@ -1,0 +1,2 @@
+SWI-Prolog 10.x
+Clingo 5.x (64-bit Windows)
